@@ -1,49 +1,38 @@
+// server.js
 const express = require('express');
 const axios = require('axios');
-const xml2js = require('xml2js');
-const cors = require('cors');
+const cors = require('cors'); // CORS 설정을 위해 필요
 
 const app = express();
 const port = 5000;
 
+// CORS 허용 (프론트에서 요청 가능하게 함)
 app.use(cors());
 
-// 공공데이터포털 API 설정
-const serviceKey = 'ESBuAj2a3I79bZceLkVQAclJJuGrijE0fvEvBUVpTOYToFP0H31wNTef%2F0ZXRXVakvQxEaawGbiPOj2D%2BfBpCA%3D%3D';
-const apiUrl = 'https://apis.data.go.kr/1400000/forestStusService/getfireStatsSearch';
+// /api/fire API 라우트
+app.get('/api/fire', async (req, res) => {
+  const { startDate, endDate, pageNo = 1, numOfRows = 10 } = req.query; // 기본값은 페이지 1, 한 번에 10개 항목
 
-app.get('/api/disaster', async (req, res) => {
+  // 공공데이터포털 서비스 키 (이미 encodeURIComponent 처리됨)
+  const serviceKey = 'pDunhrdNvnd/g4M+urxAC5hOdq+UxIjUt9LBKxqyl+EiGPiXnghtXwMJYV6v40CXOeZ6iiGf9IilPOUrYfuoRQ==';
+
+  // API 요청 URL
+  const url = `https://apis.data.go.kr/1400000/forestStusService/getfirestatsservice?serviceKey=${encodeURIComponent(serviceKey)}&searchStDt=${startDate}&searchEdDt=${endDate}&pageNo=${pageNo}&numOfRows=${numOfRows}`;
+
   try {
-    const response = await axios.get(apiUrl, {
-      params: {
-        serviceKey: decodeURIComponent(serviceKey),
-        numOfRows: 5,
-        pageNo: 1,
-        dataType: 'XML', // 응답 타입을 XML로 요청
-        searchStDt: '20240101',
-        searchEdDt: '20240413'
-      },
-      headers: {
-        Accept: 'application/xml'
-      }
-    });
-
-    // XML 파싱 후 JSON으로 변환
-    xml2js.parseString(response.data, { explicitArray: false }, (err, result) => {
-      if (err) {
-        console.error('XML 파싱 오류:', err);
-        return res.status(500).json({ error: 'XML 파싱 실패' });
-      }
-
-      const items = result.response.body.items.item;
-      res.json({ data: items });
-    });
+    // API 요청
+    const response = await axios.get(url);
+    console.log('✅ 응답 성공!');
+    
+    // 결과 반환
+    res.json(response.data.response.body.items.item);
   } catch (error) {
-    console.error('🔥 API 요청 실패:', error.message);
-    res.status(500).json({ error: 'API 요청 실패', fullResponse: error.response?.data });
+    console.error('❌ API 요청 실패:', error.message);
+    res.status(500).json({ error: 'API 요청 실패', details: error.message });
   }
 });
 
+// 서버 시작
 app.listen(port, () => {
   console.log(`✅ 서버 실행 중: http://localhost:${port}`);
 });
