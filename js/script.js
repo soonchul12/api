@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // 산불 데이터 페이지네이션 처리
   let currentPage = 1; // 현재 페이지
   const pageSize = 10; // 페이지당 항목 개수
 
-  // 페이지네이션을 위한 함수
+  // 산불 데이터 요청 함수
   function loadFireData(page) {
-    fetch(`http://localhost:5000/api/fire?startDate=20241001&endDate=20250414&pageNo=${page}&numOfRows=${pageSize}`)
+    fetch(`http://localhost:5000/api/fire?startDate=20201001&endDate=20240414&pageNo=${page}&numOfRows=${pageSize}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('네트워크 응답에 실패했습니다.');
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // 페이지네이션 버튼 활성화/비활성화 처리
-        updatePaginationButtons();
+        updatePaginationButtons(data.length);
       })
       .catch(error => {
         console.error('API 요청에 실패했습니다:', error);
@@ -43,20 +44,15 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // 페이지네이션 버튼을 업데이트하는 함수
-  function updatePaginationButtons() {
+  function updatePaginationButtons(dataLength) {
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
 
     // 이전 버튼 활성화/비활성화
-    if (currentPage > 1) {
-      prevButton.disabled = false;
-    } else {
-      prevButton.disabled = true;
-    }
+    prevButton.disabled = currentPage <= 1;
 
     // 다음 버튼 활성화/비활성화
-    // (API에서 실제로 데이터를 몇 건 가져왔는지에 따라 조건을 추가해야 합니다.)
-    nextButton.disabled = false; // 페이지가 끝나면 비활성화하는 로직 필요
+    nextButton.disabled = dataLength < pageSize; // 데이터가 부족하면 다음 버튼 비활성화
   }
 
   // 이전 페이지로 이동
@@ -72,6 +68,36 @@ document.addEventListener('DOMContentLoaded', function () {
     currentPage++;
     loadFireData(currentPage);
   });
+
+  // 이미지 슬라이드 관련 처리
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  const prevBtn = document.querySelector('.slider-btn.prev');
+  const nextBtn = document.querySelector('.slider-btn.next');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === index) slide.classList.add('active');
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    showSlide(currentIndex);
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    showSlide(currentIndex);
+  }
+
+  nextBtn.addEventListener('click', nextSlide);
+  prevBtn.addEventListener('click', prevSlide);
+
+  // 자동 슬라이드
+  setInterval(nextSlide, 5000); // 5초마다 자동 슬라이드
 
   // 초기 데이터 로드
   loadFireData(currentPage);

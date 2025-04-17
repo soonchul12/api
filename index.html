@@ -8,24 +8,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- 헤더 -->
   <header>
     <h1>재난 피해 긴급 기부 캠페인</h1>
     <nav>
       <a href="index.html">홈</a>
       <a href="donate.html">기부하기</a>
+      <a href="forest_fire.html">산불</a>
+      <a href="#">태풍</a>
+      <a href="#">지진</a>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <img src="image1.jpg" alt="재난 이미지">
+      <div class="slider">
+        <img src="image1.jpg" class="slide active" alt="재난 이미지1">  
+        <img src="image2.jpg" class="slide" alt="재난 이미지2">
+        <button class="slider-btn prev">&#10094;</button>
+        <button class="slider-btn next">&#10095;</button>
+      </div>
       <div class="hero-text">
         <h2>지금, 도움이 절실합니다</h2>
         <p>당신의 기부는 재난 피해 이웃들에게 희망이 됩니다.</p>
         <a href="donate.html" class="btn-primary">지금 기부하기</a>
       </div>
     </section>
-
+    
     <section class="disaster-list">
       <h3>📢 최근 재난 소식</h3>
       <!-- API로부터 가져온 재난 정보가 여기 출력됩니다 -->
