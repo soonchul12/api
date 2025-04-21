@@ -90,9 +90,12 @@ header {
 }
 
 #moving-background {
-  width: 500px;
-  padding-top: 40px;
-  height: 500px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
   background-color: #f5f5f5;
   color: #777;
   z-index: -1;
@@ -100,6 +103,25 @@ header {
 }
 
 #moving-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#new-image-slide {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #777;
+  z-index: -1;
+  overflow: hidden;
+}
+
+#new-image-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -158,7 +180,11 @@ header {
             </div>
           </div>
           <div id="moving-background">
-            <img src="image1.jpg">
+            <img src="yourturn.png">
+          </div>
+  
+          <div id="new-image-slide">
+            <img src="image1-pica.png">
           </div>
   
           <div class="slide slide-left" id="slide5">
@@ -449,8 +475,8 @@ const def = new Map([
     "slide4",
     {
       id: "slide4",
-      top: 4700,
-      bottom: 6000,
+      top: 6000,
+      bottom: 7300,
       topStyle: {
         opacity: 0,
       },
@@ -460,8 +486,8 @@ const def = new Map([
       animations: [
         {
           enabled: false,
-          top: 4700,
-          bottom: 6000,
+          top: 6000,
+          bottom: 7300,
           easing: midSlow,
           styles: [
             {
@@ -473,8 +499,8 @@ const def = new Map([
         },
         {
           enabled: false,
-          top: 4700,
-          bottom: 5300,
+          top: 6000,
+          bottom: 6600,
           easing: ease,
           styles: [
             {
@@ -486,8 +512,57 @@ const def = new Map([
         },
         {
           enabled: false,
-          top: 5400,
-          bottom: 6000,
+          top: 6700,
+          bottom: 7300,
+          easing: easeIn,
+          styles: [
+            {
+              name: "opacity",
+              topValue: 1,
+              bottomValue: 0,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  [
+    "new-image-slide",
+    {
+      id: "new-image-slide",
+      top: 5900,  // moving-background의 bottom 값
+      bottom: 7400,  // slide5의 top 값
+      topStyle: {
+        opacity: 0,
+        translateY: 300,
+      },
+      bottomStyle: {
+        opacity: 0,
+        translateY: 0,
+      },
+      animations: [
+        {
+          enabled: false,
+          top: 5900,
+          bottom: 6700,
+          easing: ease,
+          styles: [
+            {
+              name: "opacity",
+              topValue: 0,
+              bottomValue: 1,
+            },
+            {
+              name: "translateY",
+              topValue: 200,
+              bottomValue: 0,
+            },
+          ],
+        },
+        {
+          enabled: false,
+          top: 6700,
+          bottom: 7400,
           easing: easeIn,
           styles: [
             {
@@ -504,8 +579,8 @@ const def = new Map([
     "slide5",
     {
       id: "slide5",
-      top: 6100,
-      bottom: 9000,
+      top: 7400,
+      bottom: 10300,
       topStyle: {
         opacity: 0,
       },
@@ -515,8 +590,8 @@ const def = new Map([
       animations: [
         {
           enabled: false,
-          top: 6100,
-          bottom: 7100,
+          top: 7400,
+          bottom: 8400,
           easing: midSlow,
           styles: [
             {
@@ -528,8 +603,8 @@ const def = new Map([
         },
         {
           enabled: false,
-          top: 6100,
-          bottom: 6700,
+          top: 7400,
+          bottom: 8000,
           easing: ease,
           styles: [
             {
@@ -595,6 +670,7 @@ const elements = {
   slide2: document.getElementById("slide2"),
   slide3: document.getElementById("slide3"),
   "moving-background": document.getElementById("moving-background"),
+  "new-image-slide": document.getElementById("new-image-slide"),
   slide4: document.getElementById("slide4"),
   slide5: document.getElementById("slide5"),
 };
@@ -651,8 +727,8 @@ function onScroll() {
 window.addEventListener("scroll", onScroll);
 
 function initAnimation() {
-  // Sticky Conainer 의 높이를 설정함.
-  elements["sticky-container"].style.height = `7100px`;
+  // Sticky Container의 높이를 설정
+  elements["sticky-container"].style.height = `10300px`;
 
   // 모든 요소를 disabled 에 넣음.
   def.forEach((obj, id) => {
