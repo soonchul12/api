@@ -226,14 +226,14 @@ header {
   
           <div class="slide slide-left" id="slide5">
             <div class="slide-big-text">
-              <p>봄가을은</p>
-              <p>당신의 풍요로운</p>
-              <p>나날을 꿈꿉니다.</p>
+              <p>123123</p>
+              <p>asdasd</p>
+              <p>nnnnnnn.</p>
             </div>
             <div class="go-surf-wrapper">
-              <a href="https://springfall.cc/post/5" target="_blank"
+              <!-- <a href="https://springfall.cc/post/5" target="_blank"
                 >이 코드의 설명을 보려면 여기를 눌르세요.</a
-              >
+              > -->
             </div>
           </div>
         </div>
@@ -659,32 +659,17 @@ const def = new Map([
 const enabled = new Map();
 const disabled = new Map();
 
-/**
- * 해당 숫자가 `top`과 `bottom` 사이에 있는지 확인하는 함수
- * @param {number} num
- * @param {number} top
- * @param {number} bottom
- */
+
 function isAmong(num, top, bottom) {
   return num >= top && num <= bottom;
 }
 
-/**
- * top과 bottom 사이에서 비율을 통해 특정 값을 뽑아내는 함수
- * @param {number} top
- * @param {number} bottom
- * @param {number} rate 0~1
- */
+
 function getPoint(top, bottom, rate) {
   return top + (bottom - top) * rate;
 }
 
-/**
- * DOM 요소에 스타일을 적용하는 함수
- * @param {HTMLElement} element
- * @param {*} styleName
- * @param {number} value
- */
+
 function applyStyle(element, styleName, value) {
   if (styleName === "translateY") {
     element.style.transform = `translateY(${value}px)`;
@@ -716,6 +701,15 @@ function onScroll() {
   // 현재 스크롤 위치 파악
   const scrollTop = window.scrollY || window.pageYOffset;
   const currentPos = scrollTop + window.innerHeight / 2;
+  const totalHeight = document.documentElement.scrollHeight;
+  const viewportHeight = window.innerHeight;
+
+  // 스크롤이 맨 아래에 가까워지면 scroll-down 숨기기
+  if (scrollTop + viewportHeight >= totalHeight - 100) {  // 100px 여유를 둠
+    elements["scroll-down"].style.display = "none";
+  } else {
+    elements["scroll-down"].style.display = "block";
+  }
 
   // disabled 순회하며 활성화할 요소 찾기.
   disabled.forEach((obj, id) => {
