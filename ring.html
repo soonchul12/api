@@ -163,6 +163,7 @@ header {
     height: auto;
   }
 } */
+
   </style>
 </head>
 
@@ -236,12 +237,38 @@ header {
               > -->
             </div>
           </div>
+
         </div>
       </div>
     </main>
 
 
   </main>
+
+  <section class="turnwrap" id="turnwrap">
+    <div class="turn1">
+      <div class="ring1">
+        <img src="ring1.png" alt="Image 1">
+      </div>
+      <div class="ring2">
+        <img src="ring2.png" alt="Image 2">     
+      </div>
+      <div class="ring3">
+        <img src="ring3.png" alt="Image 3">
+
+      </div>
+      <div class="ring4">
+        <img src="ring4.png" alt="Image 4">       
+      </div>
+      <div class="ring5">
+        <img src="ring5.png" alt="Image 5">   
+      </div>
+      <div class="ring6">
+        <img src="ring6.png" alt="Image 6">
+      </div>
+       </div>
+    
+  </section>
  
 
   <footer>
@@ -617,7 +644,7 @@ const def = new Map([
     {
       id: "slide5",
       top: 7400,
-      bottom: 10300,
+      bottom: 9000,
       topStyle: {
         opacity: 0,
       },
@@ -695,6 +722,7 @@ const elements = {
   "new-image-slide": document.getElementById("new-image-slide"),
   slide4: document.getElementById("slide4"),
   slide5: document.getElementById("slide5"),
+  slide6: document.getElementById("slide6"),  // 새 슬라이드 추가
 };
 
 function onScroll() {
@@ -758,8 +786,7 @@ function onScroll() {
 window.addEventListener("scroll", onScroll);
 
 function initAnimation() {
-  // Sticky Container의 높이를 설정
-  elements["sticky-container"].style.height = `10300px`;
+  elements["sticky-container"].style.height = `9000px`;
 
   // 모든 요소를 disabled 에 넣음.
   def.forEach((obj, id) => {
