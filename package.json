@@ -12,4 +12,6 @@
   "dependencies": {
     "puppeteer": "^24.6.1"
   }
+  "description": ""
+
 }
