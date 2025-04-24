@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>재난 피해 기부</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 헤더 -->
+  <header>
+    <h1>재난 피해 긴급 기부 캠페인</h1>
+    <nav>
+      <a href="index.html">홈</a>
+      <a href="donate.html">기부하기</a>
+      <a href="forest_fire.html">산불</a>
+      <a href="ring.html">태풍</a>
+      <a href="#">지진</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="slider">
+        <img src="image1-pica.png" class="slide active" alt="재난 이미지1">  
+        <img src="image2.jpg" class="slide" alt="재난 이미지2">
+        <button class="slider-btn prev">&#10094;</button>
+        <button class="slider-btn next">&#10095;</button>
+      </div>
+      <div class="hero-text">
+        <h2>지금, 도움이 절실합니다</h2>
+        <p>당신의 기부는 재난 피해 이웃들에게 희망이 됩니다.</p>
+        <a href="donate.html" class="btn-primary">지금 기부하기</a>
+      </div>
+    </section>
+    
+    <section class="disaster-list">
+      <h3>📢 최근 재난 소식</h3>
+      <!-- API로부터 가져온 재난 정보가 여기 출력됩니다 -->
+      <ul id="disaster-list"></ul>
+    </section>
+    <div id="result"></div>
+<ul id="disaster-list"></ul>
+
+<!-- 페이지네이션 버튼 -->
+<button id="prev-button" disabled>이전</button>
+<button id="next-button">다음</button>
+
+
+    <section id="result">
+      <!-- API 메시지 또는 오류 메시지가 여기에 출력됩니다 -->
+    </section>
+  </main>
+
+  <footer>
+    <p>ⓒ 2025 재난기부플랫폼 | 함께하는 마음이 가장 큰 기부입니다.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

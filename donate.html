@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>기부하기</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .donation-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      justify-content: center;
+    }
+
+    .pay-method {
+      flex: 1 1 45%;
+      padding: 0.8rem;
+      border: 2px solid #D32F2F;
+      background-color: #fff;
+      color: #D32F2F;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .pay-method:hover {
+      background-color: #FFDADA;
+    }
+
+    .pay-method.selected {
+      background-color: #D32F2F;
+      color: white;
+    }
+
+    label {
+      display: block;
+      margin-top: 1.2rem;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .region-options {
+      margin-top: 0.8rem;
+    }
+
+    .btn-submit {
+      margin-top: 2rem;
+      padding: 0.8rem 1.4rem;
+      background-color: #D32F2F;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .btn-submit:hover {
+      background-color: #B71C1C;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>재난 피해 기부</h1>
+    <nav>
+      <a href="index.html">홈</a>
+      <a href="donate.html">기부하기</a>
+      <a href="forest_fire.html">산불</a>
+      <a href="ring.html">태풍</a>
+      <a href="#">지진</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <h2 style="text-align: center;">기부 방식 선택</h2>
+      <div class="donation-methods">
+        <div class="pay-method">신용카드</div>
+        <div class="pay-method">계좌이체</div>
+        <div class="pay-method">핸드폰</div>
+        <div class="pay-method">네이버페이</div>
+        <div class="pay-method">카카오페이</div>
+      </div>
+
+      <form id="donation-form">
+        <label for="name">이름</label>
+        <input type="text" id="name" required>
+
+        <label for="amount">기부 금액</label>
+        <input type="number" id="amount" required>
+
+        <label for="disaster">희망 지역</label>
+        <select id="disaster" required>
+          <option value="">-- 선택하세요 --</option>
+          <option value="산불">산불</option>
+          <option value="태풍">태풍</option>
+          <option value="지진">지진</option>
+        </select>
+
+        <button type="submit" class="btn-submit">기부하기</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>여러분의 따뜻한 마음에 감사합니다.</p>
+  </footer>
+
+  <script>
+    const methodButtons = document.querySelectorAll('.pay-method');
+
+    methodButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        methodButtons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+      });
+    });
+
+    document.getElementById('donation-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      
+
+      const selectedMethod = document.querySelector('.pay-method.selected');
+      if (!selectedMethod) {
+        alert("기부 방식을 선택해주세요.");
+        return;
+      }
+
+      alert("기부가 완료되었습니다. 감사합니다!");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
